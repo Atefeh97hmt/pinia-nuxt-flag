@@ -1,10 +1,11 @@
+import { defineStore } from "pinia";
 
-import { defineStore } from 'pinia';
-
-export const useCountryStore = defineStore('countryStore', {
+export const useCountryStore = defineStore("countryStore", {
   state: () => ({
     countries: [],
     favorites: [],
+    bordersCountry: [],
+    borderCodes: [],
   }),
   actions: {
     setCountries(countries) {
@@ -22,9 +23,20 @@ export const useCountryStore = defineStore('countryStore', {
       }
     },
     isFavorite(country) {
-        return this.favorites.some((c) => c.cca2 === country.cca2)
-      }
+      return this.favorites.some((c) => c.cca2 === country.cca2);
     },
+  },
 
-  getters: { },
+  getters: {
+    fetchBorders(state) {
+      if (!!state.borderCodes) {
+        const borderCodes = state.borderCodes.flat().join(",");
+        const { data: response } = useFetch(
+          `https://restcountries.com/v3.1/alpha?codes=${borderCodes}`
+        );
+        this.bordersCountry = response;
+      }
+      return this.bordersCountry;
+    },
+  },
 });

@@ -24,6 +24,19 @@
         />
       </div>
     </div>
+    <div class="border-t-4 border-indigo-500">
+        <h2 class="w-full mb-4 flex text-center justify-items-center justify-center font-bold text-3xl text-red-500">
+            Borders
+        </h2>
+        <div class="container m-auto">
+            <div class="w-full flex flex-wrap">
+                <div v-for="(border, index) in countryStore.fetchBorders" :key="index"
+                    class="basis-1/4 flex justify-center items-center bg-gray-100">
+                    <CardItem :country="border" />
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 </template>
 
