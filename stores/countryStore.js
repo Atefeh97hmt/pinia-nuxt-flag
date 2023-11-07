@@ -4,6 +4,8 @@ export const useCountryStore = defineStore("countryStore", {
   state: () => ({
     countries: [],
     favorites: [],
+    bordersCountry: [],
+    borderCodes: [],
   }),
   actions: {
     setCountries(countries) {
@@ -12,6 +14,7 @@ export const useCountryStore = defineStore("countryStore", {
     addToFavorites(country) {
       if (!this.favorites.some((c) => c.cca2 === country.cca2)) {
         this.favorites.push(country);
+        this.borderCodes.push(country.borders);
       }
     },
     removeFromFavorites(country) {
@@ -25,5 +28,16 @@ export const useCountryStore = defineStore("countryStore", {
     },
   },
 
-  getters: {},
+  getters: {
+    fetchBorders(state) {
+      if (!!state.borderCodes) {
+        const borderCodes = state.borderCodes.flat().join(",");
+        const { data: response } = useFetch(
+          `https://restcountries.com/v3.1/alpha?codes=${borderCodes}`
+        );
+        this.bordersCountry = response;
+      }
+      return this.bordersCountry;
+    },
+  },
 });

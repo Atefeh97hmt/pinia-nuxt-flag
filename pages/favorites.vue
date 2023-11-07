@@ -34,9 +34,20 @@
     <div>
       <h2>Borders</h2>
       <div>
-        <div>
-          <div v-for="(border, i) in countryStore.fetchBorders" :key="i">
-            <CardItem :country="border" />
+        <div style="display: flex; flex-wrap: wrap; margin: 5px">
+          <div v-for="(item, i) in countryStore.fetchBorders" :key="i">
+            <!-- <CardItem :country="border" /> -->
+            <div   style="
+          width: 150px;
+          display: flex;
+          flex-wrap: wrap;
+          margin: 5px;
+          background-color: black;
+          padding: 5px;
+        ">
+              <img :src="item.flags.svg"  style="width: 100%"/>
+              {{ item.name.common }}
+            </div>
           </div>
         </div>
       </div>
@@ -51,4 +62,5 @@ import { useCountryStore } from "~/stores/countryStore";
 const countryStore = useCountryStore();
 
 const favorites = computed(() => countryStore.favorites);
+
 </script>
