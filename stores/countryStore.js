@@ -4,8 +4,6 @@ export const useCountryStore = defineStore("countryStore", {
   state: () => ({
     countries: [],
     favorites: [],
-    bordersCountry: [],
-    borderCodes: [],
   }),
   actions: {
     setCountries(countries) {
@@ -27,16 +25,5 @@ export const useCountryStore = defineStore("countryStore", {
     },
   },
 
-  getters: {
-    fetchBorders(state) {
-      if (!!state.borderCodes) {
-        const borderCodes = state.borderCodes.flat().join(",");
-        const { data: response } = useFetch(
-          `https://restcountries.com/v3.1/alpha?codes=${borderCodes}`
-        );
-        this.bordersCountry = response;
-      }
-      return this.bordersCountry;
-    },
-  },
+  getters: {},
 });

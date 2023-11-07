@@ -3,11 +3,11 @@
   <div>
     <h1>Countries</h1>
     <div>
-      <div class="flex bg-red-200 p-3 mb-2 justify-between">
-            <h1 class="bg-red-500 p-2">
+      <div>
+            <h1>
                 <nuxt-link to="/">Home</nuxt-link>
             </h1>
-            <h1 class="bg-red-500 p-2">
+            <h1>
                 <nuxt-link to="/favorites">Favorite</nuxt-link>
             </h1>
         </div>
