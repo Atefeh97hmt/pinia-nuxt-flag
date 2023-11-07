@@ -1,35 +1,3 @@
-// // stores/countryStore.js
-
-// import { defineStore } from 'pinia';
-
-// export const useCountryStore = defineStore('countryStore', {
-//   state: () => ({
-//     countries: [],
-//     favorites: [],
-//   }),
-//   actions: {
-//     setCountries(countries) {
-//       this.countries = countries;
-//     },
-//     addToFavorites(country) {
-//       this.favorites.push(country);
-//     },
-//     removeFromFavorites(country) {
-//       this.favorites = this.favorites.filter((c) => c !== country);
-//     },
-//     isFavorite(countryitem) {
-//       return this.countries.some((country) => {
-//         return country.cca2 === countryitem.cca2;
-//       });
-//     },
-//   },
-//   // getters: {
-//   //   isFavorite: (country) => (country) => {
-//   //     return this.favorites.includes(country);
-//   //   },
-//   // },
-// });
-
 
 import { defineStore } from 'pinia';
 
@@ -43,17 +11,20 @@ export const useCountryStore = defineStore('countryStore', {
       this.countries = countries;
     },
     addToFavorites(country) {
-      if (!this.favorites.includes(country)) {
+      if (!this.favorites.some((c) => c.cca2 === country.cca2)) {
         this.favorites.push(country);
       }
     },
     removeFromFavorites(country) {
-      this.favorites = this.favorites.filter((c) => c !== country);
+      const index = this.favorites.findIndex((c) => c.cca2 === country.cca2);
+      if (index !== -1) {
+        this.favorites.splice(index, 1);
+      }
     },
     isFavorite(country) {
-      return this.favorites.includes(country)
-    }
-  },
-  getters: {
-  },
+        return this.favorites.some((c) => c.cca2 === country.cca2)
+      }
+    },
+
+  getters: { },
 });
