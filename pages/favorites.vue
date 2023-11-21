@@ -25,7 +25,7 @@
         "
       >
         {{ country.name.common }}
-
+        <button @click="removeFromFavorites(country)">Remove from Favorites</button>
         <img
           :src="country.flags.svg"
           :alt="country.name.common"
@@ -68,4 +68,11 @@ console.log("borders=>",countryStore.borders)
   const url = `https://restcountries.com/v3.1/alpha?codes=${countryStore.borderCodes.join(',')}`
         const response = await fetch(url);
         const result = await response.json()
+
+
+
+        const removeFromFavorites = (country) => {
+  countryStore.removeFromFavorites(country);
+};
+
 </script>

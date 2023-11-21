@@ -64,18 +64,26 @@ export const useCountryStore = defineStore("countryStore", {
       }
       this.fetchBorders();
     },
+    // removeFromFavorites(country) {
+    //   const index = this.favorites.findIndex((c) => c.cca2 === country.cca2);
+    //   if (index !== -1) {
+    //     this.favorites.splice(index, 1);
+    //   }
+    //   this.fetchBorders();
+    // },
+
     removeFromFavorites(country) {
       const index = this.favorites.findIndex((c) => c.cca2 === country.cca2);
       if (index !== -1) {
         this.favorites.splice(index, 1);
+        this.borderCodes = this.favorites.map((c) => c.borders).flat();
+        this.fetchBorders();
       }
-      this.fetchBorders();
     },
+
     isFavorite(country) {
       return this.favorites.some((c) => c.cca2 === country.cca2);
     },
-
-
 
     fetchBorders(country) {
       if (!!country.borders.length) {
