@@ -19,6 +19,7 @@
         style="width: 20%;background-color: #ddd;padding: 5px ;margin: 5px;"
       >
         <img :src="country.flags.svg" :alt="country.name.common" style="width: 150px;height: 100px;"/>
+        {{ country.name.common }}
         <button @click="toggleFavorite(country)">
           {{
             countryStore.isFavorite(country)
@@ -32,7 +33,7 @@
 </template>
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import { useCountryStore } from "~/stores/countryStore";
+import { useCountryStore } from "@/stores/countryStore";
 
 const countryStore = useCountryStore();
 const countries = computed(() => countryStore.countries);
@@ -42,6 +43,8 @@ const toggleFavorite = (country) => {
     countryStore.removeFromFavorites(country);
   } else {
     countryStore.addToFavorites(country);
+    useCountryStore.fetchBorders(country);
+
   }
 };
 
